@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+.colectionCreator {
+    background-color: rgba(255, 255, 255, 0.3);
+    height: 100vh;
+    position: absolute;
+    width: 100%;
+    z-index: 99;
+}
+
+.colectionCreatorContainer {
+    background-color: #fff;
+    height: 200px;
+    left: 50%;
+    margin-left: -250px;
+    margin-top: -170px;
+    position: absolute;
+    top: 50%;
+    width: 500px;
+}
+
+.colectionCreatorContainer span {
+    align-items: center;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 20px;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    margin-left: calc(100% - 50px);
+    margin-top: 10px;
+    width: 40px;
+}
+
+.colectionCreatorContainer span:hover {
+    background-color: rgb(201, 201, 201);
+    color: #fff;
+}
+
+.colectionCreatorContainer h3 {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0 auto;
+    width: 90%;
+}
+
+.open {
+    display: block;
+}
+
+.close {
+    display: none;
+}
+
+.form-checkout {
+    display: flex;
+    flex-direction: column;
+    height: 88px;
+    justify-content: space-between;
+    margin: 20px auto;
+    width: 90%;
+}
+
+.form-checkout input {
+    border-radius: 10px;
+    border: solid 2px #000;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    height: 30px;
+    padding-left: 10px;
+}
+
+.form-checkout button {
+    background: #2e2e2e;
+    border: solid 2px #000;
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    margin-left: calc(100% - 140px);
+    height: 35px;
+    width: 140px;
+}
+
+.form-checkout button:hover {
+    background: #5f5f5f;
+    border: solid 2px #5f5f5f;
+}

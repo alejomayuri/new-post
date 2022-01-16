@@ -1,0 +1,5 @@
+.postContainer {
+    background: #5c5c5c;
+    height: 100vh;
+    width: calc(100% - 225px);
+}
