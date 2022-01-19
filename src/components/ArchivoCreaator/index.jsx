@@ -3,6 +3,7 @@ import { useAuth } from "../../context/AuthContext";
 import { useGancho } from '../../context/GanchoContext';
 import { getFirestore } from "../../firebase";
 import { useState, useEffect } from "react";
+import firebase from 'firebase/compat';
 
 const ArchivoCreator = ({ open, setOpen }) => {
 
@@ -33,11 +34,20 @@ const ArchivoCreator = ({ open, setOpen }) => {
         e.preventDefault()
 
         let archivo = {};
+        const date = new Date()
+        const dia = date.getDate()
+        const mes = date.getMonth()
+        const year = date.getFullYear()
+
+        let mesCorrecto = mes > 9 ? mes + 1 : `0${mes + 1}`
+
+        let fecha_creado = dia + '/' + mesCorrecto + '/' + year
 
         archivo.userId = currentUser.uid
         archivo.titulo = formData.titulo
         archivo.colection = formData.colection
         archivo.postContent = formData.postContent
+        archivo.fechaCreado = fecha_creado
 
         const db = getFirestore();
         db.collection('posts').add(archivo)
@@ -46,6 +56,7 @@ const ArchivoCreator = ({ open, setOpen }) => {
 
         // setGancho(!gancho)
     }
+
 
     const crearArchivoButton = () => {
         setOpen(!open)

@@ -23,16 +23,31 @@ const PostContainer = () => {
     }, [gancho])
 
     useEffect(() => {
-
+        saltoDeLinea()
         setPintarPost(
             postColection
                 .filter(item => currentColection.id === item.colection)
                 .map(doc => ({
-                    id: doc.id, userId: doc.userId, content: doc.postContent
+                    id: doc.id, userId: doc.userId, content: doc.postContent, fecha: doc.fechaCreado, titulo: doc.titulo
                 }))
         )
-
     }, [postColection, currentColection])
+
+    const saltoDeLinea = () => {
+        pintarPost.map(texto => {
+            const textNuevo = texto.content.replace(/\n/g, `<br />`)
+            const txt = document.getElementById(`txt-${texto.id}`)
+            txt.innerHTML = textNuevo
+        })
+        // pintarPost.content = texto
+        // const t = document.getElementById('paratexto')
+        // t.innerHTML = texto
+    }
+    useEffect(() => {
+        saltoDeLinea()
+    })
+    
+    console.log(pintarPost)
 
     return (
         <div className='postContainer'>
@@ -43,7 +58,9 @@ const PostContainer = () => {
                             {
                                 item ?
                                     <div>
-                                        <p>{item.content}</p>
+                                        <h3>{item.titulo}</h3>
+                                        <p id={`txt-${item.id}`}>{item.content}</p>
+                                        <p>{item.fecha}</p>
                                     </div>
                                     :
                                     <p>no hay archivos</p>

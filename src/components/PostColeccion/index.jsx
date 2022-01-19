@@ -38,6 +38,13 @@ const PostColeccion = () => {
 
     const alert = (a) => {
         changeColection(a)
+        console.log(a)
+        const elemento = document.getElementById(a.id);
+        const elementoActivo = document.getElementsByClassName('colectionActivo')
+        if(elementoActivo.length === 1) {
+            elementoActivo[0].classList.remove('colectionActivo');
+        }
+        elemento.classList.add('colectionActivo');
     }
 
     
@@ -52,6 +59,7 @@ const PostColeccion = () => {
                             {
                                 item ?
                                     <div 
+                                        id={item.id}
                                         className='elementColection'
                                         onClick={() => alert(item)}
                                     >
