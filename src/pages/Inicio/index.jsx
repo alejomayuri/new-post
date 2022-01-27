@@ -1,7 +1,7 @@
 import './Inicio.css'
-import Login from "../Login";
-import SingUp from "../SingUp";
-import logo from './img/logo.png'
+import Login from "../../components/Login";
+import SingUp from "../../components/SingUp";
+import logo from '../../media/logo.png'
 
 const Inicio = () => {
 

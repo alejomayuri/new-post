@@ -40,3 +40,7 @@ header div img {
     cursor: pointer;
     width: 50px;
 }
+
+.menu {
+    position: relative;
+}

@@ -59,8 +59,8 @@ const PostContainer = () => {
                                 item ?
                                     <div>
                                         <h3>{item.titulo}</h3>
-                                        <p id={`txt-${item.id}`}>{item.content}</p>
-                                        <p>{item.fecha}</p>
+                                        <p className='text-container' id={`txt-${item.id}`}>{item.content}</p>
+                                        <p className='fecha-container'>{`Creado el ${item.fecha}`}</p>
                                     </div>
                                     :
                                     <p>no hay archivos</p>

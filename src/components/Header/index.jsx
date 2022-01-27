@@ -1,40 +1,35 @@
 import './Header.css'
+import logo from '../../media/logo.png'
 import { useAuth } from "../../context/AuthContext";
-import logo from '../Inicio/img/logo.png'
 import { useState } from 'react/cjs/react.development';
 import ColectionCreator from '../ColectionCreator';
 import ArchivoCreator from '../ArchivoCreaator';
+import HeaderButton from '../HeaderButton';
+import UserMenu from '../UserMenu';
 
 const Header = () => {
 
     const { currentUser } = useAuth()
-    const [openColection, setOpenColection] = useState(false)
-    const [openArchivo, setOpenArchivo] = useState(false)
+    const [openColectionCreator, setOpenColectionCreator] = useState(false)
+    const [openArchivoCreator, setOpenArchivoCreator] = useState(false)
+    const [openUserMenu, setOpenUserMenu] = useState(false)
 
-    const openColectionCreator = () => {
-        setOpenColection(!openColection)
-    }
-
-    const openArchivoCreator = () => {
-        setOpenArchivo(!openArchivo)
-    }
+    const handleUserMenu = () => setOpenUserMenu(!openUserMenu)
 
     return (
         <>
             <header>
                 <img className='logo-header' src={logo} alt="logo" />
-                <div>
-                    <img src={currentUser.photoURL} alt="photoURL" />
-                    <button
-                        onClick={openColectionCreator}
-                    >Colección</button>
-                    <button
-                        onClick={openArchivoCreator}
-                    >Post</button>
+                <div className='menu'>
+                    <img onClick={handleUserMenu} src={currentUser.photoURL} alt="photoURL" />
+                    <HeaderButton setFunction={setOpenColectionCreator} value={'Colección'} />
+                    <HeaderButton setFunction={setOpenArchivoCreator} value={'Post'} />
+
+                    <UserMenu open={openUserMenu} />
                 </div>
             </header>
-            <ColectionCreator setOpen={setOpenColection} open={openColection} />
-            <ArchivoCreator setOpen={setOpenArchivo} open={openArchivo} />
+            <ColectionCreator setOpen={setOpenColectionCreator} open={openColectionCreator} />
+            <ArchivoCreator colectionName={'colecciones'} setOpen={setOpenArchivoCreator} open={openArchivoCreator} />
         </>
     );
 }

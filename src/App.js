@@ -1,11 +1,11 @@
 import './App.css';
-import Home from './components/Home';
+import Home from './pages/Home';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { AuthProvider } from './context/AuthContext';
 import { ColectionProvider } from './context/ColectionSelect';
 import { GanchoProvider } from './context/GanchoContext';
 import { PrivateRoute } from './components/PrivateRoute';
-import Inicio from './components/Inicio';
+import Inicio from './pages/Inicio';
 
 function App() {
   return (

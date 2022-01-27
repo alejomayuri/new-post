@@ -3,3 +3,26 @@
     height: 100vh;
     width: calc(100% - 225px);
 }
+
+.postContainer div {
+    border: solid 1px #fff;
+    max-width: 1024px;
+    margin: 30px auto;
+    padding: 15px;
+    background-color: #eee;
+}
+
+.postContainer div h3 {
+    font-size: 25px;
+}
+
+.postContainer div .text-container {
+    margin-top: 15px;
+    padding: 15px;
+    background-color: #e0e0e0;
+}
+
+.postContainer div .fecha-container {
+    margin-top: 15px;
+    text-align: right;
+}

@@ -1,6 +1,6 @@
 import { useAuth } from "../../context/AuthContext";
 import { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const SingUp = () => {
 
@@ -36,7 +36,6 @@ const SingUp = () => {
         <div className='singup-container'>
             <div>
                 {error && <p className='error'>{ error }</p>}
-                {/* <h2>Sing Up</h2> */}
             </div>
             <div>
                 <form onSubmit={handleSubmit}>
@@ -48,7 +47,6 @@ const SingUp = () => {
                     <input type="password" name='confirmar-contraseña' onChange={handleConfirmPassword} />
                     <input className='singup-btn' type="submit" value='Registrarse' />
                 </form>
-                {/* <p>Ya estás registrado? <Link to='/login'>Iniciar sesión</Link></p> */}
             </div>
         </div>
     );
