@@ -34,3 +34,10 @@
 .colectionActivo {
     background-color: #525252;
 }
+
+.noColections {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 18px;
+    color: #b0b0b0;
+}

@@ -1,78 +1,30 @@
 import './PostColeccion.css'
-import { useAuth } from "../../context/AuthContext";
-import { useColection } from '../../context/ColectionSelect';
-import { useGancho } from '../../context/GanchoContext';
-import { useState, useEffect } from "react";
-import { getFirestore } from "../../firebase";
+import { useColections } from '../../hooks/useColections';
+import { useAuth } from '../../context/AuthContext';
+import ColectionElement from '../ColectionElement';
+import GifCargando from '../GifCargando';
 
-const PostColeccion = () => {
+const PostColeccion = ({ colectionName }) => {
+
+    const keyword = colectionName
+
+    const { colections, loading } = useColections({ keyword })
 
     const { currentUser } = useAuth()
-    const { changeColection } = useColection()
-    const { gancho } = useGancho()
-
-    const [archivosUser, setArchivosUser] = useState([])
-    const [pintar, setPintar] = useState([])
-
-    useEffect(() => {
-        const dbQuery = getFirestore()
-        const traer = dbQuery.collection('colecciones')
-
-        traer.get().then(({ docs }) => {
-            setArchivosUser(docs.map(doc => ({ id: doc.id, ...doc.data() })))
-        })
-
-    }, [gancho])
-
-    useEffect(() => {
-
-        setPintar(
-            archivosUser
-                .filter(item => currentUser.uid === item.userId)
-                .map(doc => ({
-                    id: doc.id, userId: doc.userId, nombre: doc.document.nombre
-                }))
-        )
-
-    }, [archivosUser])
-
-    const alert = (a) => {
-        changeColection(a)
-        console.log(a)
-        const elemento = document.getElementById(a.id);
-        const elementoActivo = document.getElementsByClassName('colectionActivo')
-        if(elementoActivo.length === 1) {
-            elementoActivo[0].classList.remove('colectionActivo');
-        }
-        elemento.classList.add('colectionActivo');
-    }
-
-    
 
     return (
         <div className='postColection'>
             <h3>Colecciones</h3>
             {
-                pintar.length !== 0 ?
-                    pintar.map(item => (
-                        <>
-                            {
-                                item ?
-                                    <div 
-                                        id={item.id}
-                                        className='elementColection'
-                                        onClick={() => alert(item)}
-                                    >
-                                        <p>{item.nombre}</p>
-                                    </div>
-                                    :
-                                    <p>no hay archivos</p>
-                            }
-                        </>
-                    ))
-                    :
-                    <p>no hay archivos</p>
+                loading
+                    ? <GifCargando />
+                    : colections.filter(colection => colection.usuario === currentUser.uid).length !== 0
+                        ? colections.filter(colection => colection.usuario === currentUser.uid).map(item => (
+                            <ColectionElement key={item.id} item={item} />
+                        ))
+                        : <p className='noColections'>No tienes colecciones</p>
             }
+
         </div>
     );
 }

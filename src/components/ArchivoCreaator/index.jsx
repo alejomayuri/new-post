@@ -1,10 +1,10 @@
 import './ArchivoCreator.css'
-import { useState, useEffect } from "react";
-import { useAuth } from "../../context/AuthContext";
-import { useGancho } from '../../context/GanchoContext';
-import getDate from '../../services/getDate';
-import useUploadFirebase from '../../hooks/useUploadFirebase';
-import { useColections } from '../../hooks/useColections';
+import { useState, useEffect } from "react"
+import { useAuth } from "../../context/AuthContext"
+import { useGancho } from '../../context/GanchoContext'
+import getDate from '../../services/getDate'
+import useUploadFirebase from '../../hooks/useUploadFirebase'
+import { useColections } from '../../hooks/useColections'
 
 const ArchivoCreator = ({ open, setOpen, colectionName = '' }) => {
 
@@ -12,8 +12,6 @@ const ArchivoCreator = ({ open, setOpen, colectionName = '' }) => {
     const { gancho, changeGancho } = useGancho()
     const keyword = colectionName
     const { colections } = useColections({ keyword })
-
-    // const [archivosUser, setArchivosUser] = useState([])
 
     const FORM_STATE = {
         titulo: '',
@@ -23,19 +21,21 @@ const ArchivoCreator = ({ open, setOpen, colectionName = '' }) => {
         usuario: ''
     }
 
+    const FIRST_COLECTION = colections.filter(colection => colection.usuario === currentUser.uid)
+
     const [formData, setFormData] = useState(FORM_STATE)
 
     useEffect(() => {
         setFormData({
             ...formData,
+            colection: FIRST_COLECTION[0] ? FIRST_COLECTION[0].id : '',
             fechaCreado: getDate(),
             usuario: currentUser.uid
         })
-    }, [currentUser.uid])
+    }, [currentUser.uid, colections])
 
-    const crearArchivoButton = () => {
+    const closeArchivoCreator = () => {
         setOpen(!open)
-        changeGancho(!gancho)
     }
 
     const handleOnChange = (e) => setFormData({
@@ -43,12 +43,11 @@ const ArchivoCreator = ({ open, setOpen, colectionName = '' }) => {
         [e.target.name]: e.target.value
     })
 
-    const closeArchivoCreator = () => {
-        setOpen(!open)
-    }
     const HandleUpload = (e) => {
         e.preventDefault()
-        useUploadFirebase({ formData: formData })
+        setOpen(!open)
+        changeGancho(!gancho)
+        useUploadFirebase({ formData: formData, colection: 'posts' })
     }
 
     return (
@@ -68,27 +67,18 @@ const ArchivoCreator = ({ open, setOpen, colectionName = '' }) => {
                 >
                     <input required type="text" name='titulo' placeholder='Título' value={formData.titulo} />
                     <label htmlFor="colection">Selecciona una colección para el post</label>
-                    <select required value={formData.colection} name="colection" placeholder='hola'>
+                    <select required value={formData.colection} name="colection">
                         {
-                            colections.length !== 0 ?
-                            colections.filter(colection => colection.userId === currentUser.uid).map(item => (
-                                    <>
-                                        {
-                                            item ?
-                                                <option key={item.id} value={item.id}>{item.document.nombre}</option>
-                                                :
-                                                <p>no hay colecciones</p>
-                                        }
-                                    </>
-                                ))
-                                :
-                                <p>no hay colecciones</p>
+                            colections.length !== 0 
+                            ? colections.filter(colection => colection.usuario === currentUser.uid).map(item => 
+                                    <option key={item.id} value={item.id}>{item.nombre}</option>
+                                )
+                            : <p>no hay colecciones</p>
+                            
                         }
                     </select>
                     <textarea name="postContent" placeholder='Post' value={formData.postContent}></textarea>
-                    <button
-                        onClick={crearArchivoButton}
-                    >Crear post</button>
+                    <button>Crear post</button>
                 </form>
             </div>
         </div>

@@ -1,49 +1,43 @@
 import './ColectionCreator.css'
+import { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useGancho } from '../../context/GanchoContext';
-import { getFirestore } from "../../firebase";
-import { useState } from "react";
+import useUploadFirebase from '../../hooks/useUploadFirebase';
+
 
 const ColectionCreator = ({ open, setOpen }) => {
 
     const { currentUser } = useAuth()
     const { gancho, changeGancho } = useGancho()
 
-    const [formData, setFormData] = useState({
+    const FORM_STATE = {
         nombre: '',
-    })
+        usuario: ''
+    }
 
-    const handleOnChange = (e) => {
+    const [formData, setFormData] = useState(FORM_STATE)
+
+    useEffect(() => {
         setFormData({
             ...formData,
-            [e.target.name]: e.target.value
+            usuario: currentUser.uid
         })
-    }
-
-    const subirColeccion = (e) => {
-
-        e.preventDefault()
-
-        let archivo = {};
-
-        archivo.userId = currentUser.uid
-        archivo.document = formData
-
-        const db = getFirestore();
-        db.collection('colecciones').add(archivo)
-            .then((res) => console.log(res))
-            .catch(err => console.log(err))
-
-        // setGancho(!gancho)
-    }
+    }, [currentUser.uid])
 
     const closeColectionCreator = () => {
         setOpen(!open)
     }
 
-    const crearColectionButton = () => {
+    const handleOnChange = (e) => setFormData({
+        ...formData,
+        [e.target.name]: e.target.value
+    })
+
+    const HandleUpload = (e) => {
+        e.preventDefault()
         setOpen(!open)
         changeGancho(!gancho)
+        useUploadFirebase({ formData: formData, colection: 'colecciones' })
     }
 
     return (
@@ -55,16 +49,14 @@ const ColectionCreator = ({ open, setOpen }) => {
                 <h3>
                     Ponle un nombre a tu colección
                 </h3>
-                <form 
-                    id="form-checkout" 
+                <form
+                    id="form-checkout"
                     className='form-checkout'
-                    onSubmit={subirColeccion}
+                    onSubmit={HandleUpload}
                     onChange={handleOnChange}
                 >
                     <input required type="text" name='nombre' placeholder='Nombre' value={formData.nombre} />
-                    <button
-                        onClick={crearColectionButton}
-                    >Crear colección</button>
+                    <button>Crear colección</button>
                 </form>
             </div>
         </div>

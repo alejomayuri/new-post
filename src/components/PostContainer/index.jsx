@@ -1,74 +1,29 @@
 import './PostContainer.css'
 import { useColection } from '../../context/ColectionSelect';
-import { useGancho } from '../../context/GanchoContext';
-import { useState, useEffect } from "react";
-import { getFirestore } from "../../firebase";
+import { useColections } from '../../hooks/useColections';
+import PostElement from '../PostElement/PostElement';
+import GifCargando from '../GifCargando';
 
-const PostContainer = () => {
+const PostContainer = ({ colectionName }) => {
 
     const { currentColection } = useColection()
-    const { gancho } = useGancho()
 
-    const [postColection, setPostColection] = useState([])
-    const [pintarPost, setPintarPost] = useState([])
+    const keyword = colectionName
 
-    useEffect(() => {
-        const dbQuery = getFirestore()
-        const traer = dbQuery.collection('posts')
-
-        traer.get().then(({ docs }) => {
-            setPostColection(docs.map(doc => ({ id: doc.id, ...doc.data() })))
-        })
-
-    }, [gancho])
-
-    useEffect(() => {
-        saltoDeLinea()
-        setPintarPost(
-            postColection
-                .filter(item => currentColection.id === item.colection)
-                .map(doc => ({
-                    id: doc.id, userId: doc.userId, content: doc.postContent, fecha: doc.fechaCreado, titulo: doc.titulo
-                }))
-        )
-    }, [postColection, currentColection])
-
-    const saltoDeLinea = () => {
-        pintarPost.map(texto => {
-            const textNuevo = texto.content.replace(/\n/g, `<br />`)
-            const txt = document.getElementById(`txt-${texto.id}`)
-            txt.innerHTML = textNuevo
-        })
-        // pintarPost.content = texto
-        // const t = document.getElementById('paratexto')
-        // t.innerHTML = texto
-    }
-    useEffect(() => {
-        saltoDeLinea()
-    })
-    
-    console.log(pintarPost)
+    const { colections, loading } = useColections({ keyword })
 
     return (
         <div className='postContainer'>
             {
-                pintarPost.length !== 0 ?
-                pintarPost.map(item => (
-                        <>
-                            {
-                                item ?
-                                    <div>
-                                        <h3>{item.titulo}</h3>
-                                        <p className='text-container' id={`txt-${item.id}`}>{item.content}</p>
-                                        <p className='fecha-container'>{`Creado el ${item.fecha}`}</p>
-                                    </div>
-                                    :
-                                    <p>no hay archivos</p>
-                            }
-                        </>
-                    ))
-                    :
-                    <p>no hay archivos</p>
+                loading
+                ? <GifCargando />
+                : Object.keys(currentColection).length === 0 
+                    ? <p className='noColections'>Selecciona una colección</p>
+                    : colections.filter(post => post.colection === currentColection.id).length !== 0
+                        ? colections.filter(post => post.colection === currentColection.id).map(item => (
+                        <PostElement key={item.id} item={item} />
+                        ))
+                        : <p className='noColections'>No tienes posts en esta colección</p>
             }
         </div>
     );

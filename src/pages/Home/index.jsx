@@ -4,17 +4,18 @@ import Header from "../../components/Header";
 import { useAuth } from "../../context/AuthContext";
 import PostColeccion from "../../components/PostColeccion";
 import PostContainer from "../../components/PostContainer";
+import { ColectionProvider } from '../../context/ColectionSelect';
 
 function Home() {
-
-    const { currentUser } = useAuth()
 
     return (
         <>
             <Header />
             <main>
-                <PostColeccion user={currentUser.uid} />
-                <PostContainer />
+                <ColectionProvider>
+                    <PostColeccion colectionName='colecciones' />
+                    <PostContainer colectionName='posts' />
+                </ColectionProvider>
             </main>
         </>
     );

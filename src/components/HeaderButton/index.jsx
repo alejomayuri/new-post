@@ -1,16 +1,10 @@
-import { useState, useEffect } from "react"
 
-export default function HeaderButton ({value, setFunction} = {}) {
-    const [open, setOpen] = useState(false)
+export default function HeaderButton ({value, setFunction, isOpen, disabled} = {}) {
    
-    const push = () => setOpen(!open)
-
-    useEffect(() => {
-        setFunction(open)
-    }, [open])
+    const push = () => setFunction(!isOpen)
 
     return (
-        <button onClick={push} >
+        <button disabled={disabled} onClick={push} >
             {value}
         </button>
     )
