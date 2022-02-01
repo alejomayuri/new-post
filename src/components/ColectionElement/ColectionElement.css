@@ -1,0 +1,37 @@
+.deleteColectionItem, .editColectionItem {
+    padding-right: 15px;
+    filter: invert(20%);
+    height: 20px;
+    padding-right: 15px;
+    display: none;
+}
+
+.deleteColectionItem:hover, .editColectionItem:hover {
+    filter: invert(10%);
+}
+
+.deleteColectionItemActivo, .editColectionItemActivo {
+    display: block;
+}
+
+
+.elementColection {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: solid 1px #525252;
+}
+
+.closeDeletecolectionBox, .closeEditColectionBox {
+    display: none;
+}
+
+.openDeletecolectionBox, .openEditColectionBox {
+    display: block;
+}
+
+.colectionMenu {
+    width: 50px;
+    display: flex;
+    margin-right: 15px;
+}

@@ -1,0 +1,43 @@
+.borrarColectionBox {
+    width: 100%;
+    position: absolute;
+    background-color: rgb(255, 255, 255);
+    height: 100vh;
+    left: 0;
+    top: 45px;
+}
+
+.borrarColectionBox p {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 17px;
+    font-weight: 600;
+    padding: 0px 10px; 
+}
+
+.borrarColectionBox p:nth-child(2) {
+    margin-top: 10px;
+}
+
+.borrarColectionButtonBox {
+    display: flex;
+    flex-direction: column;
+    width: 140px;
+    margin: 0 auto;
+}
+
+.borrarColectionButtonBox button {
+    background: 0;
+    border: solid 2px rgb(0, 0, 0);
+    border-radius: 20px;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    font-size: 16px;
+    height: 35px;
+    margin-top: 20px;
+}
+
+.borrarColectionButtonBox button:hover {
+    background: #000;
+    color: #fff;
+}
