@@ -19,7 +19,7 @@
     margin-top: 10px;
 }
 
-.editarColectionBox button {
+/* .editarColectionBox button {
     background: 0;
     border: solid 2px rgb(0, 0, 0);
     border-radius: 20px;
@@ -28,4 +28,38 @@
     font-size: 16px;
     height: 35px;
     margin-top: 20px;
+} */
+
+.editarColectionBox input {
+    margin: 0 auto;
+    margin-top: 0px;
+    display: block;
+    margin-top: 20px;
+    border-radius: 10px;
+    border: solid 2px #000;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    height: 30px;
+    padding-left: 10px;
+    width: 160px;
+}
+
+.editarColectionBox button {
+    background: 0;
+    border: solid 2px rgb(0, 0, 0);
+    border-radius: 20px;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    font-size: 16px;
+    height: 35px;
+
+    width: 140px;
+    margin: 0 auto;
+    margin-top: 20px;
+    display: block;
+}
+
+.editarColectionBox button:hover {
+    background: #000;
+    color: #fff;
 }

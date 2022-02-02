@@ -21,8 +21,8 @@ export default function DeleteColectionBox({ open, close, postsToDelete }) {
             console.log("Document successfully deleted!");
             setDeleteState(true)
             setDeleteMensaje(true)
-            changeColection(colections.filter(coleccion => coleccion.usuario === currentUser.uid)[0])
             changeGancho(!gancho)
+            changeColection(colections.filter(coleccion => coleccion.usuario === currentUser.uid)[0])
         }).catch((error) => {
             setDeleteState(true)
             setDeleteMensaje(false)
@@ -41,7 +41,6 @@ export default function DeleteColectionBox({ open, close, postsToDelete }) {
     const handleDeleteClose = () => {
         close(false)
         setDeleteState(false)
-        
     }
 
     return (
@@ -58,7 +57,7 @@ export default function DeleteColectionBox({ open, close, postsToDelete }) {
                     </>
                     : deleteMensaje
                         ? <>
-                            <p>La colección <b>{currentColection.nombre}</b> y sus post se borraron correctamente?</p>
+                            <p>La colección <b>{currentColection.nombre}</b> y sus post se borraron correctamente</p>
                             <div className='borrarColectionButtonBox'>
                                 <button onClick={handleDeleteClose}>Cerrar</button>
                             </div>
@@ -70,7 +69,6 @@ export default function DeleteColectionBox({ open, close, postsToDelete }) {
                             </div>
                         </>
             }
-
         </div>
     )
 }

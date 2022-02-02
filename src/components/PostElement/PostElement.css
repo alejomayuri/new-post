@@ -1,0 +1,31 @@
+.postElementContainer {
+    cursor: pointer;
+}
+
+.postTituloContainer {
+    display: flex;
+    align-items: center;
+}
+
+.postTituloContainer input {
+    border: none;
+    font-size: 23px;
+    font-weight: bold;
+    height: 32px;
+    padding: 0;
+}
+
+.editPostTitle {
+    height: 22px;
+    margin-left: 10px;
+    display: none;
+    filter: invert(0%);
+}
+
+.editPostTitle:hover {
+    filter: invert(0%);
+}
+
+.editPostTitleActivo {
+    display: block;
+}

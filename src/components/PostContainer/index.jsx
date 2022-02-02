@@ -2,7 +2,6 @@ import './PostContainer.css'
 import { useColection } from '../../context/ColectionSelect';
 import { useColections } from '../../hooks/useColections';
 import PostElement from '../PostElement/PostElement';
-import GifCargando from '../GifCargando';
 
 const PostContainer = ({ colectionName }) => {
 
@@ -11,9 +10,6 @@ const PostContainer = ({ colectionName }) => {
     const keyword = colectionName
 
     const { colections } = useColections({ keyword })
-
-    console.log('currentColection')
-    console.log(currentColection)
 
     return (
         <div className='postContainer'>

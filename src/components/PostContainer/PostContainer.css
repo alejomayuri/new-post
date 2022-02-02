@@ -4,7 +4,7 @@
     width: calc(100% - 225px);
 }
 
-.postContainer div {
+.postElementContainer {
     border: solid 1px #fff;
     max-width: 1024px;
     margin: 30px auto;
