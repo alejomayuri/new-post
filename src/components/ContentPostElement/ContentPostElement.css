@@ -1,0 +1,22 @@
+textarea {
+    height: 150px;
+    outline: none;
+}
+
+.textContainer button {
+    border: solid 2px rgb(0, 0, 0);
+    border-radius: 20px;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    font-size: 16px;
+    height: 35px;
+    width: 140px;
+    margin-top: 10px;
+    display: block;
+    margin-left: calc(100% - 140px);
+}
+
+.textContainer button:hover {
+    background: #000;
+    color: #fff;
+  }

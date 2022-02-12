@@ -5,17 +5,46 @@
 .postTituloContainer {
     display: flex;
     align-items: center;
+    width: 321px;
+}
+
+.postTituloContainer form {
+    display: flex;
+    box-shadow: 0px 0px 1px 1px #000;
+    border-radius: 10px;
 }
 
 .postTituloContainer input {
-    border: none;
     font-size: 23px;
     font-weight: bold;
-    height: 32px;
-    padding: 0;
+    height: 30px;
+    border: solid 1px #000;
+    padding-left: 7px;
+    border-radius: 10px 0 0 10px;
+    width: 220px;
 }
 
-.editPostTitle {
+.postTituloContainer input:focus {
+    border: solid 1px #000;
+    outline: none;
+}
+
+.postTituloContainer button {
+    background: 0;
+    border: solid 1px rgb(0, 0, 0);
+    border-radius: 0 10px 10px 0;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    font-size: 16px;
+    width: 90px;
+}
+
+.postTituloContainer button:hover {
+    background: #000;
+    color: #fff;
+}
+
+.editPostTitle, .editPostContent {
     height: 22px;
     margin-left: 10px;
     display: none;
@@ -26,6 +55,87 @@
     filter: invert(0%);
 }
 
-.editPostTitleActivo {
+.editPostTitleActivo, .editPostContentActivo {
     display: block;
+}
+
+.textContainer {
+    position: relative;
+}
+
+.editPostContent {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    filter: invert(20%);
+}
+
+.editPostContent:hover {
+    filter: invert(0%);
+}
+
+.textContainer textarea {
+    border: none;
+    background-color: #e0e0e0;
+    margin-top: 15px;
+    padding: 15px 0 15px 15px;
+    /* height: 100px; */
+    resize: vertical;
+    width: calc(100% - 15px);
+    /* overflow: hidden;     */
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+}
+
+.postElemenHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.postElemenHeader span {
+    align-items: center;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 20px;
+    display: flex;
+    height: 33px;
+    justify-content: center;
+    width: 33px;
+    display: none;
+}
+
+.postElemenHeader span:hover {
+    background-color: rgb(201, 201, 201);
+    color: #fff;
+}
+
+.openDelete {
+    display: flex !important;
+}
+
+.eliminarPostMenu {
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.eliminarPostMenu p {
+    text-align: center;
+    font-size: 18px;
+}
+
+.eliminarPostMenu div {
+    display: flex;
+    justify-content: center;
+}
+
+.eliminarPostMenu button {
+    border: solid 2px rgb(0, 0, 0);
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 16px;
+    height: 35px;
+    width: 140px;
+    margin: 20px 10px 0 10px;
 }

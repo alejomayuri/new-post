@@ -1,77 +1,67 @@
 import './PostElement.css'
-import { useState, useEffect } from "react";
-import editIcon from '../../media/editar.png'
+import { useState } from "react"
+import TitlePostElement from '../TitlePostElement'
+import ContentPostElement from '../ContentPostElement'
+import { useGancho } from '../../context/GanchoContext'
+import { getFirestore } from '../../firebase'
+
 
 export default function PostElement({ item }) {
 
-    const [editButtonActive, setEditButtonActive] = useState(false)
-    const [activeEditTitle, setActiveEditTitle] = useState(true)
-    const [newName, setNewName] = useState({
-        nombre: item.titulo
-    })
+    const [postTarget, setPostTarget] = useState({})
+    const [openDeletePost, setOpenDeletePost] = useState(false)
+    const [openDeletePostMenu, setOpenDeletePostMenu] = useState(false)
 
-    useEffect(() => {
-        const textNuevo = item.postContent.replace(/\n/g, `<br />`)
-        const txt = document.getElementById(`txt-${item.id}`)
-        txt.innerHTML = textNuevo
-    }, [])
+    const { gancho, changeGancho } = useGancho()
 
-    const handleOnChange = (e) => setNewName({
-        ...newName,
-        [e.target.name]: e.target.value
-    })
+    const handlePostTarget = (event) => setPostTarget(event.target)
 
-    const handleOpenEditTitleMenu = () => {
-        setEditButtonActive(true)
-    }
+    const handleOpenDeletePost = () => setOpenDeletePost(true)
 
-    const handleCloseEditTitleMenu = () => {
-        setEditButtonActive(false)
-    }
+    const handleCloseDeletePost = () => setOpenDeletePost(false)
 
-    const handleActiveEditTitle = () => {
-        setActiveEditTitle(false)
-    }
+    const handleOpenDeletePostMenu = () => setOpenDeletePostMenu(true)
 
-    const handleDectiveEditTitle = () => {
-        if (activeEditTitle === false && editButtonActive === false) setActiveEditTitle(true)
+    const handleCloseDeletePostMenu = () => setOpenDeletePostMenu(false)
+
+    const deleteColection = () => {
+        const db = getFirestore()
+        db.collection('posts').doc(item.id).delete().then(() => {
+            console.log("Document successfully deleted!");
+            setOpenDeletePostMenu(false)
+            changeGancho(!gancho)
+        }).catch((error) => {
+            console.error("Error removing document: ", error);
+        });
     }
 
     return (
         <div className='postElementContainer'
-            onClick={handleDectiveEditTitle}
+            onClick={handlePostTarget}
+            onMouseEnter={handleOpenDeletePost}
+            onMouseLeave={handleCloseDeletePost}
         >
-            <div className="postTituloContainer"
-                onMouseEnter={handleOpenEditTitleMenu}
-                onMouseLeave={handleCloseEditTitleMenu}
-                onClick={handleActiveEditTitle}
-            >
-                {
-                    activeEditTitle
-                        ? <>
-                            <h3>{item.titulo}</h3>
-                            <img
-                                className={`editPostTitle ${editButtonActive ? 'editPostTitleActivo' : ''}`}
-                                src={editIcon}
-                                alt="editIcon"
-                                
-                            />
-                        </>
-                        : <>
-                            <form
-                                className=''
-                                // onSubmit={updateColection}
-                                onChange={handleOnChange}
-                            >
-                                <input required type="text" name='nombre' placeholder={item.titulo} value={newName.nombre} />
-                                <button>Actualizar</button>
-                            </form>
-                        </>
-                }
+            {
+                openDeletePostMenu
+                    ? <div className='eliminarPostMenu'>
+                        <p>¿Seguro que quieres eliminar este post?</p>
+                        <div>
+                            <button onClick={deleteColection}>Eliminar</button>
+                            <button onClick={handleCloseDeletePostMenu}>Cancelar</button>
+                        </div>
+                    </div>
+                    : <>
+                        <div className='postElemenHeader'>
+                            <TitlePostElement item={item} target={postTarget} />
+                            <span onClick={handleOpenDeletePostMenu} className={`${openDeletePost ? 'openDelete' : ''}`}>X</span>
+                        </div>
 
-            </div>
-            <p className='text-container' id={`txt-${item.id}`}>{decodeURI(item.postContent)}</p>
-            <p className='fecha-container'>{`Creado el ${item.fechaCreado}`}</p>
+
+                        <ContentPostElement item={item} target={postTarget} />
+
+                        <p className='fecha-container'>{`Creado el ${item.fechaCreado}`}</p>
+                    </>
+            }
         </div>
     )
 }
